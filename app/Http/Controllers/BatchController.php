@@ -12,9 +12,9 @@ class BatchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $batch = Batcg::orderBy('id','DESC')->paginate(4);
+        $batch = Batch::orderBy('id','DESC')->paginate(4);
         $provider = Provider::orderBy('id','description');
 
         return view('Batch.index',compact('batch','provider'))
@@ -28,7 +28,9 @@ class BatchController extends Controller
      */
     public function create()
     {
-        //
+        $provider = Provider::orderBy('id','name');
+
+        return view('Batch.create',compact('provider'));
     }
 
     /**
