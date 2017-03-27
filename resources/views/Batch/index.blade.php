@@ -21,13 +21,14 @@
 
     <table class="table table-bordered">
         <tr>
-            <th>Fornecedor</th>
+            <th>Id</th>
+            <th>Provider</th>
             <th width="280px">Action</th>
         </tr>
     @foreach ($batch as $p)
     <tr>
-        <td>{{ ++$i }}</td>
         
+        <td>{{ $p->id }}</td>
         <td>{{ $p->provider_id }}</td>
         <td>
             <a class="btn btn-info" href="{{ route('batch.show',$p->id) }}">Show</a>

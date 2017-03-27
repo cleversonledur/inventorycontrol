@@ -19,14 +19,14 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Description:</strong>
-                {{ $product->name }}
+                <strong>Id:</strong>
+                {{ $batch->id }}
             </div>
         </div>
          <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Description:</strong>
-                {{ $product->category_id }}
+                {{ $batch->provider_id }}
             </div>
         </div>
 

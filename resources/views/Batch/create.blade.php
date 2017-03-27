@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Create New Product</h2>
+                <h2>Create New Batch</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('category.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('batch.index') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -24,23 +24,14 @@
         </div>
     @endif
 
-    {!! Form::open(array('route' => 'product.store','method'=>'POST')) !!}
+    {!! Form::open(array('route' => 'batch.store','method'=>'POST')) !!}
     <div class="row">
 
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Nome do Produto:</strong>
-                {!! Form::textarea('name', null, array('placeholder' => 'Name','class' => 'form-control','style'=>'height:100px')) !!}
-            </div>
-        </div>
-
-
-
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
             <strong>Categoria:</strong>
-              {!! Form::select('category_id', $category->lists('description', 'id'),null,  array('placeholder' => 'Category','class' => 'form-control','style'=>'height:100px')) !!}
+              {!! Form::select('provider_id', $provider->lists('name', 'id'),null,  array('placeholder' => 'Select a provider','class' => 'form-control','style'=>'height:100px')) !!}
             </div>
         </div>
 

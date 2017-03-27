@@ -1,9 +1,10 @@
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Batch;
+use App\Product;
+use App\ProductBatch;
 
 class ProductBatchController extends Controller
 {
@@ -14,7 +15,13 @@ class ProductBatchController extends Controller
      */
     public function index(Request $request)
     {
-        //
+        $productbatch = ProductBatch::orderBy('product_batch.id','DESC')
+                        ->join('batch', 'product_batch.batch_id', '=', 'batch.id')
+                        ->join('product', 'product_batch.product_id', '=', 'product.id')
+                        ->paginate(4);
+        
+        return view('ProductBatch.index',compact('productbatch',$productbatch))
+            ->with('i', ($request->input('page', 1) - 1) * 4);
     }
 
     /**
@@ -24,7 +31,12 @@ class ProductBatchController extends Controller
      */
     public function create()
     {
-        //
+        $batch = Batch::orderBy('batch.id','DESC')
+                ->join('provider', 'batch.provider_id', '=', 'provider.id');
+        $product = Product::orderBy('id','DESC');
+
+
+        return view('PRoductBatch.create')->with('batch',$batch)->with('product',$product);
     }
 
     /**
@@ -35,7 +47,19 @@ class ProductBatchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'product_id' => 'required',
+            'batch_id' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+
+        ]);
+        $this->total = $this->price * $this->quantity;
+
+        ProductBatch::create($request->all())->fill(['total' => 
+        $request->price * $request->quantity]);
+        return redirect()->route('productbatch.index')
+                        ->with('success','Product created successfully');
     }
 
     /**
@@ -46,7 +70,8 @@ class ProductBatchController extends Controller
      */
     public function show($id)
     {
-        //
+        $batch = Batch::find($id);
+        return view('Batch.show',compact('batch'));
     }
 
     /**
@@ -57,7 +82,11 @@ class ProductBatchController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $provider = Provider::orderBy('id','name');
+        $batch = Batch::find($id);
+        
+        return view('Batch.edit',compact('batch','provider'));
     }
 
     /**
@@ -69,7 +98,13 @@ class ProductBatchController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'provider_id' => 'required',
+        ]);
+
+        Batch::find($id)->update($request->all());
+        return redirect()->route('batch.index')
+                        ->with('success','Category updated successfully');
     }
 
     /**
@@ -80,6 +115,8 @@ class ProductBatchController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Batch::find($id)->delete();
+        return redirect()->route('batch.index')
+                        ->with('success','Category deleted successfully');
     }
 }

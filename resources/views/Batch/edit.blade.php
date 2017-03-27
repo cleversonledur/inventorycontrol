@@ -8,7 +8,7 @@
                 <h2>Edit New Item</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('product.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('batch.index') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -24,22 +24,22 @@
         </div>
     @endif
 
-    {!! Form::model($product, ['method' => 'PATCH','route' => ['product.update', $product->id]]) !!}
+    {!! Form::model($batch, ['method' => 'PATCH','route' => ['batch.update', $batch->id]]) !!}
     <div class="row">
 
        
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Name:</strong>
-                {!! Form::textarea('name', null, array('placeholder' => 'Name','class' => 'form-control','style'=>'height:100px')) !!}
+                <strong>Id:</strong>
+                {{ $batch->id }}
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-            <strong>Category:</strong>
-              {!! Form::select('category_id', $category->lists('description', 'id'),null,  array('placeholder' => 'Category','class' => 'form-control','style'=>'height:100px')) !!}
+            <strong>Provider:</strong>
+              {!! Form::select('provider_id', $provider->lists('name', 'id'),null,  array('placeholder' => 'Providers','class' => 'form-control','style'=>'height:100px')) !!}
             </div>
         </div>
 

@@ -41,7 +41,13 @@ class BatchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'provider_id' => 'required',
+        ]);
+
+        Batch::create($request->all());
+        return redirect()->route('batch.index')
+                        ->with('success','Product created successfully');
     }
 
     /**
@@ -52,7 +58,8 @@ class BatchController extends Controller
      */
     public function show($id)
     {
-        //
+        $batch = Batch::find($id);
+        return view('Batch.show',compact('batch'));
     }
 
     /**
@@ -63,7 +70,11 @@ class BatchController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $provider = Provider::orderBy('id','name');
+        $batch = Batch::find($id);
+        
+        return view('Batch.edit',compact('batch','provider'));
     }
 
     /**
@@ -75,7 +86,13 @@ class BatchController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'provider_id' => 'required',
+        ]);
+
+        Batch::find($id)->update($request->all());
+        return redirect()->route('batch.index')
+                        ->with('success','Category updated successfully');
     }
 
     /**
@@ -86,6 +103,8 @@ class BatchController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Batch::find($id)->delete();
+        return redirect()->route('batch.index')
+                        ->with('success','Category deleted successfully');
     }
 }

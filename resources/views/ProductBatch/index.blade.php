@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Categories </h2>
+                <h2>Purchases:</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('category.create') }}"> Create New Category</a>
+                <a class="btn btn-success" href="{{ route('productbatch.create') }}"> Create New Purchase </a>
             </div>
         </div>
     </div>
@@ -22,18 +22,29 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Description</th>
+            <th>Product Name</th>
+            <th>Batch ID</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total Price</th>
+
             <th width="280px">Action</th>
         </tr>
-    @foreach ($category as $key => $category)
+    @foreach ($productbatch as $key => $pb)
     <tr>
         <td>{{ ++$i }}</td>
         
-        <td>{{ $category->description }}</td>
+        <td>{{ $pb->name }}</td>
+        <td>{{ $pb->batch_id }}</td>
+
+        <td>{{ $pb->quantity }}</td>
+        <td>{{ $pb->price }}</td>
+        <td>{{ $pb->totalprice }}</td>
+
         <td>
-            <a class="btn btn-info" href="{{ route('category.show',$category->id) }}">Show</a>
-            <a class="btn btn-primary" href="{{ route('category.edit',$category->id) }}">Edit</a>
-            {!! Form::open(['method' => 'DELETE','route' => ['category.destroy', $category->id],'style'=>'display:inline']) !!}
+            <a class="btn btn-info" href="{{ route('productbatch.show',$pb->id) }}">Show</a>
+            <a class="btn btn-primary" href="{{ route('productbatch.edit',$pb->id) }}">Edit</a>
+            {!! Form::open(['method' => 'DELETE','route' => ['productbatch.destroy', $pb->id],'style'=>'display:inline']) !!}
             {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
             {!! Form::close() !!}
         </td>
