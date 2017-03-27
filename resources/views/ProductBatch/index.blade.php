@@ -30,16 +30,15 @@
 
             <th width="280px">Action</th>
         </tr>
-    @foreach ($productbatch as $key => $pb)
+    @foreach ($productbatch as $pb)
     <tr>
         <td>{{ ++$i }}</td>
-        
         <td>{{ $pb->name }}</td>
         <td>{{ $pb->batch_id }}</td>
 
         <td>{{ $pb->quantity }}</td>
         <td>{{ $pb->price }}</td>
-        <td>{{ $pb->totalprice }}</td>
+        <td>R$ {{ $pb->price * $pb->quantity }}</td>
 
         <td>
             <a class="btn btn-info" href="{{ route('productbatch.show',$pb->id) }}">Show</a>
@@ -51,6 +50,7 @@
     </tr>
     @endforeach
     </table>
+    {!! $productbatch->render() !!}
 
    
 

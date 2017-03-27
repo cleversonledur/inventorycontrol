@@ -8,7 +8,7 @@
                 <h2>Edit New Item</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('category.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('productbatch.index') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -24,15 +24,36 @@
         </div>
     @endif
 
-    {!! Form::model($category, ['method' => 'PATCH','route' => ['category.update', $category->id]]) !!}
+    {!! Form::model($productbatch, ['method' => 'PATCH','route' => ['ProductBatch.update', $productbatch->id]]) !!}
     <div class="row">
 
        
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Description:</strong>
-                {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control','style'=>'height:100px')) !!}
+            <strong>Category:</strong>
+              {!! Form::select('product_id', $category->lists('name', 'id'),null,  array('placeholder' => 'Category','class' => 'form-control','style'=>'height:100px')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+            <strong>Category:</strong>
+              {!! Form::select('batch_id', $category->lists('id', 'id'),null,  array('placeholder' => 'Category','class' => 'form-control','style'=>'height:100px')) !!}
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Price:</strong>
+                {!! Form::textarea('price', null, array('placeholder' => 'Price','class' => 'form-control','style'=>'height:100px')) !!}
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Quantity:</strong>
+                {!! Form::textarea('quantity', null, array('placeholder' => 'Quantity','class' => 'form-control','style'=>'height:100px')) !!}
             </div>
         </div>
 

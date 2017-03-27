@@ -54,10 +54,8 @@ class ProductBatchController extends Controller
             'quantity' => 'required',
 
         ]);
-        $this->total = $this->price * $this->quantity;
 
-        ProductBatch::create($request->all())->fill(['total' => 
-        $request->price * $request->quantity]);
+        ProductBatch::create($request->all());
         return redirect()->route('productbatch.index')
                         ->with('success','Product created successfully');
     }
@@ -70,8 +68,8 @@ class ProductBatchController extends Controller
      */
     public function show($id)
     {
-        $batch = Batch::find($id);
-        return view('Batch.show',compact('batch'));
+        $batch = ProductBatch::find($id);
+        return view('ProductBatch.show',compact('batch'));
     }
 
     /**
@@ -83,10 +81,12 @@ class ProductBatchController extends Controller
     public function edit($id)
     {
 
-        $provider = Provider::orderBy('id','name');
-        $batch = Batch::find($id);
+        $product = Product::orderBy('id','name');
+        $batch = Batch::orderBy('id','name');
+
+        $productbatch = ProductBatch::find($id);
         
-        return view('Batch.edit',compact('batch','provider'));
+        return view('ProductBatch.edit',compact('productbatch','product','batch'));
     }
 
     /**
@@ -99,11 +99,15 @@ class ProductBatchController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'provider_id' => 'required',
+            'batch_id' => 'required',
+            'product_id' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+
         ]);
 
-        Batch::find($id)->update($request->all());
-        return redirect()->route('batch.index')
+        ProductBatch::find($id)->update($request->all());
+        return redirect()->route('productbatch.index')
                         ->with('success','Category updated successfully');
     }
 
@@ -115,8 +119,8 @@ class ProductBatchController extends Controller
      */
     public function destroy($id)
     {
-        Batch::find($id)->delete();
-        return redirect()->route('batch.index')
+        ProductBatch::find($id)->delete();
+        return redirect()->route('productbatch.index')
                         ->with('success','Category deleted successfully');
     }
 }
